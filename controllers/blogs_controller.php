@@ -10,6 +10,12 @@
         case 'index':
             $controller->index();
             break;
+        case 'show':
+            $controller->show($id);
+            break;
+        case 'add':
+            $controller->add();
+            break;
 
         default:
 
@@ -25,6 +31,7 @@
         private $action = '';
         private $resource = '';
         private $viewOptions = '';
+        private $id = '';
 
         public function index(){
         	//モデルを呼び出す
@@ -44,6 +51,28 @@
             require('views/layout/application.php');
             // require('views/blogs/index.php');
 
+        }
+        public function show($id){
+        	//モデルを呼び出す
+        	$blog = new Blog();
+        	$this->showOptions = $blog->show($id);
+
+        	//アクション名を設定
+        	$this->action = 'show';
+
+        	//ビューを呼び出す
+        	require('views/layout/application.php');
+        }
+        public function add(){
+        	//モデルを呼び出す
+        	$blog = new Blog();
+        	$this->addOptions = $blog->add();
+
+        	//アクション名を指定
+        	$this->action = 'add';
+
+        	//ビューを呼び出す
+        	require('views/layout/application.php');
         }
 }
  ?>

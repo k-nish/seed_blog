@@ -5,7 +5,7 @@
 
     //パラメータの分解
     $resource = $params[0];
-    $action = [1];
+    $action = $params[1];
     $id = 0;
 
     //idがあった場合idも取得する

@@ -16,7 +16,18 @@
         case 'add':
             $controller->add();
             break;
-
+        case 'create':
+            $controller->create($post['title'],$post['body']);
+            break;
+        case 'edit':
+            $controller->edit($id);
+            break;
+        case 'update':
+            $controller->update($id,$post['title'],$post['body']);
+            break;
+        case 'delete':
+            $controller->delete($id);
+            break;
         default:
 
             break;
@@ -32,6 +43,8 @@
         private $resource = '';
         private $viewOptions = '';
         private $id = '';
+        private $title = '';
+        private $body = '';
 
         public function index(){
         	//モデルを呼び出す
@@ -73,6 +86,38 @@
 
         	//ビューを呼び出す
         	require('views/layout/application.php');
+        }
+        public function create($title,$body){
+        	//モデルを呼び込む
+        	$blog = new Blog();
+        	$this->createOption = $blog->create($title,$body);
+
+        	header('Location: /seed_blog/blogs/index');
+        }
+        public function edit($id){
+        	//モデル呼び出し
+        	$blog = new Blog();
+        	$this->editOption = $blog->edit($id);
+
+        	//アクション名指定
+        	$this->action = 'edit';
+
+        	//ビューを呼び出す
+        	require('views/layout/application.php');
+        }
+        public function update($id,$title,$body){
+        	//モデル呼び出し
+        	$blog = new Blog();
+        	$this->editOption = $blog->update($id,$title,$body);
+
+            header('Location: /seed_blog/blogs/index');
+        }
+        public function delete($id){
+        	//モデルを呼び出す
+        	$blog = new Blog();
+        	$this->deleteOptions = $blog->delete($id);
+
+        	header('Location: /seed_blog/blogs/index');
         }
 }
  ?>
